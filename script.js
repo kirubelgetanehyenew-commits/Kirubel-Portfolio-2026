@@ -3,13 +3,13 @@ const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
 
 document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    
-    setTimeout(() => {
-        cursorFollower.style.left = e.clientX + 'px';
-        cursorFollower.style.top = e.clientY + 'px';
-    }, 80);
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+
+      setTimeout(() => {
+            cursorFollower.style.left = e.clientX + 'px';
+            cursorFollower.style.top = e.clientY + 'px';
+      }, 80);
 });
 
 // Dark mode toggle
@@ -18,31 +18,31 @@ const body = document.body;
 
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') {
-    body.classList.add('dark');
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      body.classList.add('dark');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
 }
 
 themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark');
-    
-    if (body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    } else {
-        localStorage.setItem('theme', 'light');
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    }
+      body.classList.toggle('dark');
+
+      if (body.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+            localStorage.setItem('theme', 'light');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
 });
 
 // Smooth scroll for navigation
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
+      anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+      });
 });
 
 // Animated role typing effect
@@ -53,31 +53,31 @@ let isDeleting = false;
 const roleElement = document.querySelector('.role-text');
 
 function typeEffect() {
-    if (!roleElement) return;
-    const currentRole = roles[roleIndex];
-    
-    if (isDeleting) {
-        roleElement.textContent = currentRole.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        roleElement.textContent = currentRole.substring(0, charIndex + 1);
-        charIndex++;
-    }
-    
-    if (!isDeleting && charIndex === currentRole.length) {
-        isDeleting = true;
-        setTimeout(typeEffect, 2000);
-        return;
-    }
-    
-    if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        roleIndex = (roleIndex + 1) % roles.length;
-        setTimeout(typeEffect, 500);
-        return;
-    }
-    
-    setTimeout(typeEffect, isDeleting ? 50 : 100);
+      if (!roleElement) return;
+      const currentRole = roles[roleIndex];
+
+      if (isDeleting) {
+            roleElement.textContent = currentRole.substring(0, charIndex - 1);
+            charIndex--;
+      } else {
+            roleElement.textContent = currentRole.substring(0, charIndex + 1);
+            charIndex++;
+      }
+
+      if (!isDeleting && charIndex === currentRole.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+      }
+
+      if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            setTimeout(typeEffect, 500);
+            return;
+      }
+
+      setTimeout(typeEffect, isDeleting ? 50 : 100);
 }
 
 // Start typing effect after page loads
@@ -86,17 +86,17 @@ setTimeout(typeEffect, 1000);
 // Copy email functionality
 const copyBtn = document.querySelector('.copy-btn');
 if (copyBtn) {
-    copyBtn.addEventListener('click', () => {
-        const email = 'kirubelgetanehyenew@gmail.com';
-        navigator.clipboard.writeText(email);
-        
-        // Show temporary notification
-        const originalText = copyBtn.innerHTML;
-        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-        setTimeout(() => {
-            copyBtn.innerHTML = originalText;
-        }, 2000);
-    });
+      copyBtn.addEventListener('click', () => {
+            const email = 'kirubelgetanehyenew@gmail.com';
+            navigator.clipboard.writeText(email);
+
+            // Show temporary notification
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+                  copyBtn.innerHTML = originalText;
+            }, 2000);
+      });
 }
 
 // Mobile menu toggle
@@ -104,9 +104,9 @@ const mobileBtn = document.querySelector('.mobile-menu-btn');
 const navLinks = document.querySelector('.nav-links');
 
 if (mobileBtn && navLinks) {
-    mobileBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
-    });
+      mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+      });
 }
 
 // Add this CSS for mobile menu
@@ -132,3 +132,21 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+// Small copy buttons for email
+const smallCopyBtns = document.querySelectorAll('.copy-btn-small');
+
+smallCopyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const textToCopy = btn.getAttribute('data-copy');
+        if (textToCopy) {
+            navigator.clipboard.writeText(textToCopy);
+            
+            // Show feedback
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        }
+    });
+});
